@@ -1,7 +1,7 @@
 /**
- * @copyright Copyright (c) 2019 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2019 John Molakvoæ <skjnldsv@protonmail.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author John Molakvoæ <skjnldsv@protonmail.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -20,21 +20,20 @@
  *
  */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { Tooltip, PopoverMenu } from 'nextcloud-vue';
-import ClickOutside from 'vue-click-outside';
+import SharingTab from './views/SharingTab'
+import ShareSearch from './services/ShareSearch'
+import ExternalLinkActions from './services/ExternalLinkActions'
 
-Vue.prototype.t = t;
-Vue.component('PopoverMenu', PopoverMenu);
-Vue.directive('ClickOutside', ClickOutside);
-Tooltip.options.defaultHtml = false
-Vue.directive('Tooltip', Tooltip);
-Vue.use(Vuex);
+if (window.OCA && window.OCA.Sharing) {
+	Object.assign(window.OCA.Sharing, { ShareSearch: new ShareSearch() })
+}
 
-import View from './views/CollaborationView';
+if (window.OCA && window.OCA.Sharing) {
+	Object.assign(window.OCA.Sharing, { ExternalLinkActions: new ExternalLinkActions() })
+}
 
-export {
-	Vue,
-	View
-};
+window.addEventListener('DOMContentLoaded', () => {
+	if (OCA.Files && OCA.Files.Sidebar) {
+		OCA.Files.Sidebar.registerTab(new OCA.Files.Sidebar.Tab('sharing', SharingTab))
+	}
+})
