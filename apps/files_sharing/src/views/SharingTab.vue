@@ -53,6 +53,9 @@
 
 			<!-- internal link copy -->
 			<SharingEntryInternal :file-info="fileInfo" />
+			
+			<!-- projects -->
+			<collection-list v-if="fileInfo" type="file" :id="`${fileInfo.id}`" :name="fileInfo.name"></collection-list>
 		</template>
 	</Tab>
 </template>
@@ -65,6 +68,7 @@ import ActionCheckbox from 'nextcloud-vue/dist/Components/ActionCheckbox'
 import ActionLink from 'nextcloud-vue/dist/Components/ActionLink'
 import Avatar from 'nextcloud-vue/dist/Components/Avatar'
 import axios from 'nextcloud-axios'
+import { CollectionList } from 'nextcloud-vue-collections'
 
 import { shareWithTitle } from '../utils/SharedWithMe'
 import Share from '../models/Share'
@@ -87,6 +91,7 @@ export default {
 		ActionCheckbox,
 		ActionLink,
 		Avatar,
+		CollectionList,
 		SharingEntryInternal,
 		SharingEntrySimple,
 		SharingInput,
