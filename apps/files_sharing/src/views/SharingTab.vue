@@ -53,10 +53,10 @@
 
 			<!-- internal link copy -->
 			<SharingEntryInternal :file-info="fileInfo" />
-			
-			<!-- projects -->
-			<collection-list v-if="fileInfo" type="file" :id="`${fileInfo.id}`" :name="fileInfo.name"></collection-list>
 		</template>
+		
+		<!-- projects -->
+		<collection-list v-if="fileInfo" type="file" :id="`${fileInfo.id}`" :name="fileInfo.name"></collection-list>
 	</Tab>
 </template>
 
@@ -119,7 +119,8 @@ export default {
 			reshare: null,
 			sharedWithMe: {},
 			shares: [],
-			linkShares: []
+			linkShares: [],
+			sections: OCA.Sharing.ShareTabSections.getSections()
 		}
 	},
 
