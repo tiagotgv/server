@@ -41,6 +41,7 @@ use OCP\Share\IProviderFactory;
 use OCP\Share\IShare;
 use OC\Share20\Manager;
 use OC\Share20\Exception;
+use OC\Files\Mount\MountPoint;
 
 use OC\Share20\Share;
 use OCP\IL10N;
@@ -53,6 +54,7 @@ use OCP\Files\Mount\IMountManager;
 use OCP\IGroupManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Test\TestMoveableMountPoint;
 
 /**
  * Class ManagerTest
@@ -600,8 +602,8 @@ class ManagerTest extends \Test\TestCase {
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_GROUP, $limitedPermssions, $group0, $user0, $user0, null, null, null), 'A share requires permissions', true];
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_LINK,  $limitedPermssions, null, $user0, $user0, null, null, null), 'A share requires permissions', true];
 
-		$mount = $this->createMock(MoveableMount::class);
-		$limitedPermssions->method('getMountPoint')->willReturn($mount);
+		$movableMount = $this->createMock(TestMoveableMountPoint::class);
+		$limitedPermssions->method('getMountPoint')->willReturn($movableMount);
 
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_USER,  $limitedPermssions, $user2, $user0, $user0, 31, null, null), 'Can’t increase permissions of path', true];
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_GROUP, $limitedPermssions, $group0, $user0, $user0, 17, null, null), 'Can’t increase permissions of path', true];
@@ -613,6 +615,9 @@ class ManagerTest extends \Test\TestCase {
 		$nonMoveableMountPermssions->method('getPath')->willReturn('path');
 		$nonMoveableMountPermssions->method('getOwner')
 			->willReturn($owner);
+		$nonMoveableMountPoint = $this->createMock(MountPoint::class);
+		$nonMoveableMountPermssions->method('getMountPoint')->willReturn($nonMoveableMountPoint);
+
 
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_USER,  $nonMoveableMountPermssions, $user2, $user0, $user0, 11, null, null), 'Can’t increase permissions of path', false];
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_GROUP, $nonMoveableMountPermssions, $group0, $user0, $user0, 11, null, null), 'Can’t increase permissions of path', false];
@@ -631,6 +636,8 @@ class ManagerTest extends \Test\TestCase {
 		$allPermssions->method('getPermissions')->willReturn(\OCP\Constants::PERMISSION_ALL);
 		$allPermssions->method('getOwner')
 			->willReturn($owner);
+		$allPermssions->method('getMountPoint')->willReturn($movableMount);
+
 
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_USER,  $allPermssions, $user2, $user0, $user0, 30, null, null), 'Shares need at least read permissions', true];
 		$data[] = [$this->createShare(null, \OCP\Share::SHARE_TYPE_GROUP, $allPermssions, $group0, $user0, $user0, 2, null, null), 'Shares need at least read permissions', true];
