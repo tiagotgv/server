@@ -58,6 +58,11 @@
 		 */
 		$fileList: null,
 
+		$header: null,
+		headers: [],
+
+		$footer: null,
+
 		/**
 		 * @type OCA.Files.BreadCrumb
 		 */
@@ -262,6 +267,8 @@
 			this.$container = options.scrollContainer || $(window);
 			this.$table = $el.find('table:first');
 			this.$fileList = $el.find('#fileList');
+			this.$header = $el.find('#filelist-header');
+			this.$footer = $el.find('#filelist-footer');
 
 			if (!_.isUndefined(this._filesConfig)) {
 				this._filesConfig.on('change:showhidden', function() {
@@ -408,6 +415,26 @@
 
 
 			OC.Plugins.attach('OCA.Files.FileList', this);
+
+			this.initHeaders()
+		},
+
+		initHeaders: function() {
+			var uid = 0;
+			var sortedHeaders = this.headers.sort((a, b) => {
+				a.order - b.order
+			})
+			var uniqueIds = [];
+			sortedHeaders.forEach((header) => {
+				if (header.id) {
+					if (uniqueIds.indexOf(header.id) !== -1) {
+						return
+					}
+					uniqueIds.push(header.id)
+				}
+				this.$header.append(header.el)
+				setTimeout(() => header.render(this), 0)
+			})
 		},
 
 		/**
@@ -670,7 +697,7 @@
 			this.$showGridView.next('#view-toggle')
 				.removeClass('icon-toggle-filelist icon-toggle-pictures')
 				.addClass(show ? 'icon-toggle-filelist' : 'icon-toggle-pictures')
-				
+
 			$('.list-container').toggleClass('view-grid', show);
 		},
 
@@ -3640,6 +3667,10 @@
 			}
 
 			return null;
+		},
+
+		registerHeader: function(header) {
+			this.headers.push(header)
 		}
 	};
 
