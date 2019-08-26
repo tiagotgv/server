@@ -1193,78 +1193,6 @@ trigger:
 
 ---
 kind: pipeline
-name: integration-sharing-v1
-
-steps:
-- name: submodules
-  image: docker:git
-  commands:
-    - git submodule update --init
-- name: integration-sharing-v1
-  image: nextcloudci/integration-php7.1:1
-  commands:
-    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
-    - cd build/integration
-    - ./run.sh features/sharing-v1.feature
-
-trigger:
-  branch:
-    - master
-    - stable*
-  event:
-    - pull_request
-    - push
-
----
-kind: pipeline
-name: integration-sharing-v1-part2
-
-steps:
-- name: submodules
-  image: docker:git
-  commands:
-    - git submodule update --init
-- name: integration-sharing-v1-part2
-  image: nextcloudci/integration-php7.1:1
-  commands:
-    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
-    - cd build/integration
-    - ./run.sh features/sharing-v1-part2.feature
-
-trigger:
-  branch:
-    - master
-    - stable*
-  event:
-    - pull_request
-    - push
-
----
-kind: pipeline
-name: integration-sharing-v1-part3
-
-steps:
-- name: submodules
-  image: docker:git
-  commands:
-    - git submodule update --init
-- name: integration-sharing-v1-part3
-  image: nextcloudci/integration-php7.1:1
-  commands:
-    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
-    - cd build/integration
-    - ./run.sh features/sharing-v1-part3.feature
-
-trigger:
-  branch:
-    - master
-    - stable*
-  event:
-    - pull_request
-    - push
-
----
-kind: pipeline
 name: integration-checksums-v1
 
 steps:
@@ -1542,6 +1470,78 @@ steps:
     - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
     - cd build/integration
     - ./run.sh sharees_features/sharees_provisioningapiv2.feature
+
+trigger:
+  branch:
+    - master
+    - stable*
+  event:
+    - pull_request
+    - push
+
+---
+kind: pipeline
+name: integration-sharing-v1
+
+steps:
+- name: submodules
+  image: docker:git
+  commands:
+    - git submodule update --init
+- name: integration-sharing-v1
+  image: nextcloudci/integration-php7.1:1
+  commands:
+    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
+    - cd build/integration
+    - ./run.sh sharing_features/sharing-v1.feature
+
+trigger:
+  branch:
+    - master
+    - stable*
+  event:
+    - pull_request
+    - push
+
+---
+kind: pipeline
+name: integration-sharing-v1-part2
+
+steps:
+- name: submodules
+  image: docker:git
+  commands:
+    - git submodule update --init
+- name: integration-sharing-v1-part2
+  image: nextcloudci/integration-php7.1:1
+  commands:
+    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
+    - cd build/integration
+    - ./run.sh sharing_features/sharing-v1-part2.feature
+
+trigger:
+  branch:
+    - master
+    - stable*
+  event:
+    - pull_request
+    - push
+
+---
+kind: pipeline
+name: integration-sharing-v1-part3
+
+steps:
+- name: submodules
+  image: docker:git
+  commands:
+    - git submodule update --init
+- name: integration-sharing-v1-part3
+  image: nextcloudci/integration-php7.1:1
+  commands:
+    - ./occ maintenance:install --admin-pass=admin --data-dir=/dev/shm/nc_int
+    - cd build/integration
+    - ./run.sh sharing_features/sharing-v1-part3.feature
 
 trigger:
   branch:
