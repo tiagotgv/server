@@ -97,7 +97,7 @@ class CryptoWrapper {
 							'expires' => 0,
 							'path' => $webRoot,
 							'domain' => '',
-							' secure' => $secureCookie,
+							'secure' => $secureCookie,
 							'httponly' => true,
 							'samesite' => 'Lax',
 						]
