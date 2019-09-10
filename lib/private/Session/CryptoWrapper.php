@@ -94,7 +94,7 @@ class CryptoWrapper {
 						self::COOKIE_NAME,
 						$this->passphrase,
 						[
-							' expires' => 0,
+							'expires' => 0,
 							'path' => $webRoot,
 							'domain' => '',
 							' secure' => $secureCookie,
