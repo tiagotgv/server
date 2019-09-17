@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>settings</id>
+	<name>Nextcloud Settings</name>
+	<summary>Nextcloud Settings</summary>
+	<description>Nextcloud Settings</description>
+	<version>1.0.0</version>
+	<licence>agpl</licence>
+	<author>Bjoern Schiessle</author>
+	<namespace>Settings</namespace>
+	<default_enable/>
+
+	<category>files</category>
+	<bugs>https://github.com/nextcloud/server/issues</bugs>
+	<dependencies>
+		<nextcloud min-version="18" max-version="18"/>
+	</dependencies>
+</info>

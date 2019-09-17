@@ -36,7 +36,7 @@ namespace OCA\Provisioning_API\Controller;
 use OC\Accounts\AccountManager;
 use OC\Authentication\Token\RemoteWipe;
 use OC\HintException;
-use OC\Settings\Mailer\NewUserMailHelper;
+use OCA\Settings\Mailer\NewUserMailHelper;
 use OCA\Provisioning_API\FederatedFileSharingFactory;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http\DataResponse;
@@ -61,7 +61,7 @@ class UsersController extends AUserData {
 	private $logger;
 	/** @var IFactory */
 	private $l10nFactory;
-	/** @var NewUserMailHelper */
+	/** @var \OCA\Settings\Mailer\NewUserMailHelper */
 	private $newUserMailHelper;
 	/** @var FederatedFileSharingFactory */
 	private $federatedFileSharingFactory;
@@ -81,7 +81,7 @@ class UsersController extends AUserData {
 	 * @param AccountManager $accountManager
 	 * @param ILogger $logger
 	 * @param IFactory $l10nFactory
-	 * @param NewUserMailHelper $newUserMailHelper
+	 * @param \OCA\Settings\Mailer\NewUserMailHelper $newUserMailHelper
 	 * @param FederatedFileSharingFactory $federatedFileSharingFactory
 	 * @param ISecureRandom $secureRandom
 	 */
